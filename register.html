@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rejestracja</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>Rejestracja</h1>
+
+      <div id="registerPanel">
+        <form id="registerForm" onsubmit="return validateForm()">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Potwierdź hasło"
+            required
+          />
+          <button type="submit">Zarejestruj się</button>
+        </form>
+      </div>
+
+      <script>
+        function validateForm() {
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            alert("Hasła nie są takie same!");
+            return false;
+          }
+
+          // Dodanie użytkownika do localStorage
+          const username = document.getElementById("username").value;
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+          // Sprawdzenie czy użytkownik już istnieje
+          if (users.some((user) => user.username === username)) {
+            alert("Użytkownik już istnieje!");
+            return false;
+          }
+
+          users.push({ username, password });
+          localStorage.setItem("users", JSON.stringify(users));
+
+          alert("Rejestracja udana!");
+          window.location.href = "index.html";
+          return false;
+        }
+      </script>
+
+      <p><a href="index.html">Powrót do logowania</a></p>
+    </div>
+  </body>
+</html>
