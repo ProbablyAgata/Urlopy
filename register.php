@@ -12,6 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
     $role = $_POST['role'];
+    $imie = trim($_POST['imie']);
+    $nazwisko = trim($_POST['nazwisko']);
 
     // Sprawdzenie czy nazwa użytkownika jest już zajęta
     $check = $conn->prepare('SELECT id FROM users WHERE username = ?');
@@ -26,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Dodanie nowego użytkownika
-        $stmt = $conn->prepare('INSERT INTO users (username, password, role) VALUES (?, ?, ?)');
-        $stmt->bind_param('sss', $username, $hashed_password, $role);
+        $stmt = $conn->prepare('INSERT INTO users (imie, nazwisko, username, password, role) VALUES (?, ?, ?, ?, ?)');
+        $stmt->bind_param('sssss', $imie, $nazwisko, $username, $hashed_password, $role);
 
         if ($stmt->execute()) {
             header('Location: index.html');

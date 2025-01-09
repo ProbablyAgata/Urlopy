@@ -15,42 +15,56 @@ try {
         [
             'username' => 'Agata.Ochocinska',
             'password' => 'password123',
-            'role' => 'manager'
+            'role' => 'manager',
+            'imie' => 'Agata',
+            'nazwisko' => 'Ochocinska'
         ],
         [
             'username' => 'Jan.Sobieski',
             'password' => 'password456',
-            'role' => 'pracownik'
+            'role' => 'pracownik',
+            'imie' => 'Jan',
+            'nazwisko' => 'Sobieski'
         ],
         [
             'username' => 'Stanislaw.Lem',
             'password' => 'password789',
-            'role' => 'pracownik'
+            'role' => 'pracownik',
+            'imie' => 'Stanislaw',
+            'nazwisko' => 'Lem'
         ],
         [
             'username' => 'Kamil.Stoch',
             'password' => 'password987',
-            'role' => 'pracownik'
+            'role' => 'pracownik',
+            'imie' => 'Kamil',
+            'nazwisko' => 'Stoch'
         ],
         [
             'username' => 'Remigiusz.Mroz',
             'password' => 'password654',
-            'role' => 'manager'
+            'role' => 'manager',
+            'imie' => 'Remigiusz',
+            'nazwisko' => 'Mroz'
         ],
         [
             'username' => 'Maciej.Musial',
             'password' => 'password321',
-            'role' => 'pracownik'
+            'role' => 'pracownik',
+            'imie' => 'Maciej',
+            'nazwisko' => 'Musial'
         ],
         [
             'username' => 'Anita.Wlodarczyk',
             'password' => 'password123',
-            'role' => 'pracownik'
+            'role' => 'pracownik',
+            'imie' => 'Anita',
+            'nazwisko' => 'Wlodarczyk'
         ]
     ];
 
     // Tworzenie zapytania SQL
-    $stmt = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)");
+    $stmt = $pdo->prepare("INSERT INTO users (username, password, role, imie, nazwisko) VALUES (:username, :password, :role, :imie, :nazwisko)");
 
     // Wstawianie każdego użytkownika
     foreach ($users as $user) {
@@ -61,7 +75,9 @@ try {
         $stmt->execute([
             ':username' => $user['username'],
             ':password' => $hashedPassword,
-            ':role' => $user['role']
+            ':role' => $user['role'],
+            ':imie' => $user['imie'],
+            ':nazwisko' => $user['nazwisko']
         ]);
 
         echo "Dodano użytkownika: {$user['username']}\n";

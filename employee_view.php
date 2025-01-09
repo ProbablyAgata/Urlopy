@@ -13,7 +13,10 @@ $conn = new mysqli(
 );
 
 $user_id = $_SESSION['user_id'];
-$result = $conn->query("SELECT * FROM wnioski_urlopowe WHERE user_id = $user_id");
+$stmt = $conn->prepare("SELECT * FROM wnioski_urlopowe WHERE employee_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -26,24 +29,48 @@ $result = $conn->query("SELECT * FROM wnioski_urlopowe WHERE user_id = $user_id"
 </head>
 
 <body>
-    <h1>Twoje wnioski urlopowe</h1>
-    <table class="employee-table">
-        <tr>
-            <th>Data rozpoczęcia</th>
-            <th>Data zakończenia</th>
-            <th>Powód</th>
-            <th>Status</th>
-        </tr>
-        <?php while ($row = $result->fetch_assoc()): ?>
+    <div class="header-container">
+        <h1>Moje wnioski</h1>
+        <a href="logout.php" class="button">Wyloguj się</a>
+    </div>
+    <table border="1">
+        <thead>
             <tr>
-                <td data-label="Data rozpoczęcia"><?= $row['poczatek_urlopu'] ?></td>
-                <td data-label="Data zakończenia"><?= $row['koniec_urlopu'] ?></td>
-                <td data-label="Powód"><?= $row['powod'] ?></td>
-                <td data-label="Status"><?= $row['status'] ?></td>
+                <th>Data rozpoczęcia</th>
+                <th>Data zakończenia</th>
+                <th>Powód</th>
+                <th>Status</th>
+                <th>Komentarz</th>
             </tr>
-        <?php endwhile; ?>
+        </thead>
+        <tbody>
+            <?php
+            // Fetch leave applications for the current user
+            $user_id = $_SESSION['user_id'];
+            $sql = "SELECT * FROM wnioski_urlopowe WHERE employee_id = ? ORDER BY poczatek_urlopu DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['poczatek_urlopu']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['koniec_urlopu']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['powod']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['komentarz_kadra'] ?? '-') . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
     </table>
-    <a href="logout.php" class="button">Wyloguj się</a>
+
+    <div class="button-container">
+        <a href="create_leave_application.php" class="add-button">Dodaj nowy wniosek</a>
+    </div>
+    </div>
+
 </body>
 
 </html>

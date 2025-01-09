@@ -6,9 +6,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'manager') {
 }
 
 $conn = new mysqli('localhost', 'root', '', 'planowane_urlopy');
-$result = $conn->query("SELECT wnioski_urlopowe.*, users.username 
+$result = $conn->query("SELECT wnioski_urlopowe.*, users.imie, users.nazwisko 
                        FROM wnioski_urlopowe 
-                       JOIN users ON wnioski_urlopowe.user_id = users.id");
+                       JOIN users ON wnioski_urlopowe.employee_id = users.id
+                       WHERE wnioski_urlopowe.status = 'oczekujacy'");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $request_id = $_POST['request_id'];
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comment = $_POST['comment'];
 
     $status = $action === 'Opinia' ? 'zatwierdzony' : 'odrzucony';
-    $stmt = $conn->prepare("UPDATE wnioski_urlopowe SET status = ?, komentarz_managera = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE wnioski_urlopowe SET status = ?, komentarz_kadra = ? WHERE id = ?");
     $stmt->bind_param('ssi', $status, $comment, $request_id);
     $stmt->execute();
     header('Lokalizacja: widok_manager.php');
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td data-label="Pracownik"><?= $row['username'] ?></td>
+                <td data-label="Pracownik"><?= $row['imie'] . ' ' . $row['nazwisko'] ?></td>
                 <td data-label="Data rozpoczęcia"><?= $row['poczatek_urlopu'] ?></td>
                 <td data-label="Data zakończenia"><?= $row['koniec_urlopu'] ?></td>
                 <td data-label="Powód"><?= $row['powod'] ?></td>
@@ -64,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endwhile; ?>
     </table>
     <a href="logout.php">Wyloguj się</a>
+    <div class="container">
+    </div>
 </body>
 
 </html>

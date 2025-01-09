@@ -23,18 +23,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('pracownik','manager') NOT NULL
+  `role` enum('pracownik','manager') NOT NULL,
+  `imie` varchar(50) NOT NULL,
+  `nazwisko` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
 -- Struktura tabeli dla tabeli `wnioski_urlopowe`
 --
 
 CREATE TABLE `wnioski_urlopowe` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+  `employee_id` int(11) NOT NULL,
+  `manager_id` int(11) NOT NULL,
   `poczatek_urlopu` date NOT NULL,
   `koniec_urlopu` date NOT NULL,
   `powod` text NOT NULL,

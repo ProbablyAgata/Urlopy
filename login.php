@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Przekierowanie na podstawie roli użytkownika
             if ($user['role'] === 'manager') {
-                header('Lokalizacja: manager_view.php');
+                header('Location: manager_view.php');
             } else if ($user['role'] === 'pracownik') {
-                header('Lokalizacja: employee_view.php');
+                header('Location: employee_view.php');
             }
             exit();
         } else {
