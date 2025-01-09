@@ -2,40 +2,39 @@
 session_start();
 require_once 'connect.php';
 
-// Only redirect to index if there's no session at all
+// Przekierowanie do index.html, jeśli nie ma sesji
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
+    header("Lokalizacja: index.html");
     exit();
 }
 
-// Only process actions when form is submitted from the confirmation page
+// Tylko przetwarzaj akcje, gdy formularz jest przesyłany z strony potwierdzenia
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'confirm_logout') {
             session_destroy();
-            header("Location: index.html");
+            header("Lokalizacja: index.html");
             exit();
         } elseif ($_POST['action'] === 'cancel') {
-            $role = $_SESSION['role'] ?? 'pracownik'; // Default to pracownik if role not set
+            $role = isset($_SESSION['rola']) && in_array($_SESSION['rola'], ['pracownik', 'manager'])
+                ? $_SESSION['rola']
+                : 'pracownik';
             switch ($role) {
                 case 'pracownik':
-                    header("Location: employee_view.php");
+                    header("Lokalizacja: employee_view.php");
                     exit();
                 case 'manager':
-                    header("Location: manager_view.php");
+                    header("Lokalizacja: manager_view.php");
                     exit();
                 default:
-                    header("Location: index.html");
+                    header("Lokalizacja: index.html");
                     exit();
             }
         }
     }
 }
 
-// If no POST action, display the confirmation page
 ?>
-<!DOCTYPE html>
-<!-- Rest of the HTML remains the same -->
 <!DOCTYPE html>
 <html lang="pl">
 

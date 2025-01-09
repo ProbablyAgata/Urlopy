@@ -1,104 +1,139 @@
+/* Baza */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.login-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;   
-}
-
-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-select {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-}
-
-
-p {
-    text-align: center;
-    margin-top: 15px;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-.logout-button {
-    display: inline-block;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-.logout-button:hover {
-    background-color: green;
-}
-
-.cancel-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgb(241, 56, 56);
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    text-align: center;
-    width: fit-content;
-    min-width: 100px;
+    padding: 15px;
+    max-width: 1200px;
     margin: 0 auto;
+    font-size: 16px;
 }
-.cancel-button:hover {
-    background-color: red;
+
+/* Sprawdzenie */
+* {
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Meta tag */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 8px;
+    }
+}
+
+/* Urządzenia mobilne */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+    
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        background: #f9f9f9;
+    }
+    
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+    
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /* elementy formularza */
+    textarea {
+        width: 100%;
+        margin: 5px 0;
+        min-height: 60px;
+        padding: 5px;
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Przycisk wylogowania */
+    a.button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background: #f0f0f0;
+        text-decoration: none;
+        color: #333;
+        margin-top: 20px;
+        border-radius: 4px;
+    }
+}
+
+    /* Małe urządzenia mobilne */
+    @media screen and (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+
+    td {
+        padding-left: 45%;
+    }
+
+    td:before {
+        width: 40%;
+    }
 }

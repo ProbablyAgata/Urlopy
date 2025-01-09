@@ -11,12 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $sql = '';
-    // Dodanie debugowania
 
+    // Dodanie debugowania
     error_log("Próba logowania dla użytkownika: " . $username);
 
     // Pobieranie danych użytkownika
-
     $stmt = $conn->prepare('SELECT id, password, role FROM users WHERE username = ?');
     $stmt->bind_param('s', $username);
     $stmt->execute();
@@ -35,11 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['rola'] = $user['role'];
 
             // Przekierowanie na podstawie roli użytkownika
-
             if ($user['role'] === 'manager') {
-                header('Location: manager_view.php');
+                header('Lokalizacja: manager_view.php');
             } else if ($user['role'] === 'pracownik') {
-                header('Location: employee_view.php');
+                header('Lokalizacja: employee_view.php');
             }
             exit();
         } else {
@@ -47,7 +45,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Nieprawidłowe hasło'; // Wiadomość o błędzie
         }
     } else {
-        error_log("No user found with username: " . $username);
+        error_log("Nie znaleziono użytkownika: " . $username);
         echo 'Użytkownik nie istnieje'; // Wiadomość o błędzie
+    }
+
+    // Szczegóły logowania
+    error_log("Próba logowania - szczegóły:");
+    error_log("Nazwa użytkownika: " . $username);
+    error_log("Role w bazie danych:");
+
+    // Sprawdzenie dostępnych ról
+    $roles_query = $conn->query("SELECT DISTINCT role FROM users");
+    while ($role = $roles_query->fetch_assoc()) {
+        error_log("- " . $role['role']);
     }
 }

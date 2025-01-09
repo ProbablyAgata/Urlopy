@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'manager') {
-    header('Location: index.html');
+    header('Lokalizacja: index.html');
     exit();
 }
 
@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
     $comment = $_POST['comment'];
 
-    $status = $action === 'approve' ? 'zatwierdzony' : 'odrzucony';
+    $status = $action === 'Opinia' ? 'zatwierdzony' : 'odrzucony';
     $stmt = $conn->prepare("UPDATE wnioski_urlopowe SET status = ?, komentarz_managera = ? WHERE id = ?");
     $stmt->bind_param('ssi', $status, $comment, $request_id);
     $stmt->execute();
-    header('Location: widok_manager.php');
+    header('Lokalizacja: widok_manager.php');
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <h1>Panel Menedżera</h1>
-    <table>
+    <table class="manager-table">
         <tr>
             <th>Pracownik</th>
             <th>Data rozpoczęcia</th>
@@ -45,12 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?= $row['username'] ?></td>
-                <td><?= $row['poczatek_urlopu'] ?></td>
-                <td><?= $row['koniec_urlopu'] ?></td>
-                <td><?= $row['powod'] ?></td>
-                <td><?= $row['status'] ?></td>
-                <td>
+                <td data-label="Pracownik"><?= $row['username'] ?></td>
+                <td data-label="Data rozpoczęcia"><?= $row['poczatek_urlopu'] ?></td>
+                <td data-label="Data zakończenia"><?= $row['koniec_urlopu'] ?></td>
+                <td data-label="Powód"><?= $row['powod'] ?></td>
+                <td data-label="Status"><?= $row['status'] ?></td>
+                <td data-label="Akcja">
                     <?php if ($row['status'] === 'oczekujacy'): ?>
                         <form method="POST">
                             <input type="hidden" name="request_id" value="<?= $row['id'] ?>">

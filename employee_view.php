@@ -27,7 +27,7 @@ $result = $conn->query("SELECT * FROM wnioski_urlopowe WHERE user_id = $user_id"
 
 <body>
     <h1>Twoje wnioski urlopowe</h1>
-    <table>
+    <table class="employee-table">
         <tr>
             <th>Data rozpoczęcia</th>
             <th>Data zakończenia</th>
@@ -36,10 +36,10 @@ $result = $conn->query("SELECT * FROM wnioski_urlopowe WHERE user_id = $user_id"
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?= $row['poczatek_urlopu'] ?></td>
-                <td><?= $row['koniec_urlopu'] ?></td>
-                <td><?= $row['powod'] ?></td>
-                <td><?= $row['status'] ?></td>
+                <td data-label="Data rozpoczęcia"><?= $row['poczatek_urlopu'] ?></td>
+                <td data-label="Data zakończenia"><?= $row['koniec_urlopu'] ?></td>
+                <td data-label="Powód"><?= $row['powod'] ?></td>
+                <td data-label="Status"><?= $row['status'] ?></td>
             </tr>
         <?php endwhile; ?>
     </table>

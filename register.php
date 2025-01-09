@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('sss', $username, $hashed_password, $role);
 
         if ($stmt->execute()) {
-            header('Location: register.html');
+            header('Location: index.html');
             exit();
         } else {
             echo 'Błąd podczas rejestracji: ' . $conn->error;
