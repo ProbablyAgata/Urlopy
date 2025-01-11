@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Tylko przetwarzaj akcje, gdy formularz jest przesyłany z strony potwierdzenia
+// Tylko przetwarzaj akcje, gdy formularz jest przesyłany ze strony potwierdzenia
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'confirm_logout') {
@@ -41,17 +41,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potwierdzenie wylogowania</title>
+    <title>Wylogowanie - System Urlopowy</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="logout-confirmation">
-        <h2>Czy na pewno chcesz się wylogować?</h2>
-        <form method="POST" action="logout.php" style="gap: 10px;">
-            <button type="submit" name="action" value="confirm_logout" class="logout-button">Tak, wyloguj</button>
-            <button type="submit" name="action" value="cancel" class="cancel-button">Anuluj</button>
-        </form>
+    <div class="container">
+        <div class="card form-container fade-in">
+            <div class="header-container">
+                <h1>Wylogowanie</h1>
+            </div>
+
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <p>Czy na pewno chcesz się wylogować?</p>
+            </div>
+
+            <form method="POST" action="logout.php">
+                <div class="form-group">
+                    <button type="submit" name="action" value="confirm_logout" class="button button-danger">Tak, wyloguj</button>
+                    <button type="submit" name="action" value="cancel" class="button">Anuluj</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 

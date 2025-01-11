@@ -9,7 +9,6 @@ $conn = new mysqli('localhost', 'root', '', 'planowane_urlopy');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['save_changes'])) {
-        // Obsługa zapisu zmian
         $request_id = $_POST['request_id'];
         $status = $_POST['status'];
         $comment = $_POST['comment'];
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Pobieranie szczegółów wniosku
     $request_id = $_POST['request_id'];
     $stmt = $conn->prepare("SELECT * FROM wnioski_urlopowe WHERE id = ? AND manager_id = ?");
     $stmt->bind_param('ii', $request_id, $_SESSION['user_id']);
@@ -30,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
-        // Jeśli nie znaleziono wniosków, ten wniosek nie należy do tego menedżera
         header('Location: manager_view.php');
         exit();
     }
@@ -44,35 +41,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Edytuj Wniosek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edytuj Wniosek - System Urlopowy</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
+    <nav class="top-nav">
+        <a href="manager_view.php" class="home-link">
+            <span class="material-icons">home</span>
+            <span>Panel Menedżera</span>
+        </a>
+        <a href="logout.php" class="button button-danger">Wyloguj się</a>
+    </nav>
+
     <div class="container">
-        <h1>Edytuj Wniosek</h1>
+        <div class="content-container">
+            <h1>Edytuj Wniosek</h1>
 
-        <form method="POST">
-            <input type="hidden" name="request_id" value="<?= $application['id'] ?>">
+            <form method="POST" class="leave-form">
+                <input type="hidden" name="request_id" value="<?= $application['id'] ?>">
 
-            <div class="form-group">
-                <label>Status:</label>
-                <select name="status" required>
-                    <option value="zatwierdzony" <?= $application['status'] === 'zatwierdzony' ? 'selected' : '' ?>>Zatwierdzony</option>
-                    <option value="odrzucony" <?= $application['status'] === 'odrzucony' ? 'selected' : '' ?>>Odrzucony</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="zatwierdzony" <?= $application['status'] === 'zatwierdzony' ? 'selected' : '' ?>>Zatwierdzony</option>
+                        <option value="odrzucony" <?= $application['status'] === 'odrzucony' ? 'selected' : '' ?>>Odrzucony</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label>Komentarz:</label>
-                <textarea name="comment"><?= htmlspecialchars($application['komentarz_kadra']) ?></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="comment">Komentarz:</label>
+                    <textarea name="comment" id="comment" class="form-control"><?= htmlspecialchars($application['komentarz_kadra']) ?></textarea>
+                </div>
 
-            <div class="form-group">
-                <button type="submit" name="save_changes">Zapisz zmiany</button>
-                <a href="manager_view.php" class="button">Anuluj</a>
-            </div>
-        </form>
+                <div class="actions-container">
+                    <a href="manager_view.php" class="button button-danger">Anuluj</a>
+                    <button type="submit" name="save_changes" class="button button-success">Zapisz zmiany</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 

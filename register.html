@@ -3,80 +3,120 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rejestracja</title>
+    <title>Rejestracja - System Urlopowy</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="login-container">
-      <h1>Rejestracja</h1>
+    <div class="container">
+      <div class="card form-container fade-in">
+        <div class="header-container">
+          <h1>Rejestracja</h1>
+        </div>
 
-      <div id="registerPanel">
         <form
           id="registerForm"
           action="register.php"
           method="POST"
           onsubmit="return validateForm()"
         >
-          <input
-            type="text"
-            id="imie"
-            name="imie"
-            placeholder="Imię"
-            required
-          />
-          <input
-            type="text"
-            id="nazwisko"
-            name="nazwisko"
-            placeholder="Nazwisko"
-            required
-          />
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            required
-          />
-          <select id="role" name="role" required>
-            <option value="">Wybierz rolę</option>
-            <option value="manager">Manager</option>
-            <option value="pracownik">Pracownik</option>
-          </select>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Potwierdź hasło"
-            required
-          />
-          <button type="submit">Zarejestruj się</button>
+          <div class="form-group">
+            <label for="imie">Imię</label>
+            <input
+              type="text"
+              id="imie"
+              name="imie"
+              class="form-control"
+              placeholder="Wprowadź imię"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="nazwisko">Nazwisko</label>
+            <input
+              type="text"
+              id="nazwisko"
+              name="nazwisko"
+              class="form-control"
+              placeholder="Wprowadź nazwisko"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="username">Nazwa użytkownika</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Wprowadź nazwę użytkownika"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="role">Rola w systemie</label>
+            <select id="role" name="role" class="form-control" required>
+              <option value="">Wybierz rolę</option>
+              <option value="manager">Manager</option>
+              <option value="pracownik">Pracownik</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Hasło</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Wprowadź hasło"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Potwierdź hasło</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="form-control"
+              placeholder="Potwierdź hasło"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="button">Zarejestruj się</button>
+          </div>
+
+          <p class="text-center">
+            Masz już konto?
+            <a href="index.html" class="text-primary">Zaloguj się</a>
+          </p>
         </form>
       </div>
-
-      <script>
-        function validateForm() {
-          const password = document.getElementById("password").value;
-          const confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-          if (password !== confirmPassword) {
-            alert("Hasła nie są takie same!");
-            return false;
-          }
-
-          return true;
-        }
-      </script>
-
-      <p><a href="index.html">Powrót do logowania</a></p>
     </div>
+
+    <script>
+      function validateForm() {
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          alert("Hasła nie są takie same!");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
   </body>
 </html>
