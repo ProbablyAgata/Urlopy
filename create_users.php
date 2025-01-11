@@ -48,7 +48,7 @@ try {
 
     // Wstawianie każdego użytkownika
     foreach ($users as $user) {
-        // Keep using password_hash
+        // Haszowanie hasła
         $hashedPassword = password_hash($user['password'], PASSWORD_DEFAULT);
 
         // Wykonanie zapytania

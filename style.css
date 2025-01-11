@@ -14,7 +14,7 @@ body {
     background-color: #f5f5f5;
 }
 
-/* Header styles */
+/* Header */
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -275,7 +275,7 @@ textarea {
     resize: vertical;
 }
 
-/* Status-specyficzne kolory */
+/* Specyficzne kolory */
 .status-oczekujacy {
     color: #f39c12;
 }

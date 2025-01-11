@@ -6,21 +6,40 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'manager') {
 }
 
 $conn = new mysqli('localhost', 'root', '', 'planowane_urlopy');
-$result = $conn->query("SELECT wnioski_urlopowe.*, users.imie, users.nazwisko 
+
+// Debugowanie
+error_log("Manager ID: " . $_SESSION['user_id']);
+
+// Modyfikacja zapytania
+$stmt = $conn->prepare("SELECT wnioski_urlopowe.*, users.imie, users.nazwisko 
                        FROM wnioski_urlopowe 
                        JOIN users ON wnioski_urlopowe.employee_id = users.id
+                       WHERE wnioski_urlopowe.manager_id = ?
                        ORDER BY wnioski_urlopowe.id DESC");
+
+if (!$stmt) {
+    error_log("Query preparation failed: " . $conn->error);
+    die("Query preparation failed");
+}
+
+$stmt->bind_param('i', $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Debugowanie liczby wyników
+error_log("Liczba wniosków: " . $result->num_rows);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $request_id = $_POST['request_id'];
     $action = $_POST['action'];
     $comment = $_POST['comment'];
 
-    $status = $action === 'Opinia' ? 'zatwierdzony' : 'odrzucony';
+    $status = $action === 'approve' ? 'zatwierdzony' : 'odrzucony';
     $stmt = $conn->prepare("UPDATE wnioski_urlopowe SET status = ?, komentarz_kadra = ? WHERE id = ?");
     $stmt->bind_param('ssi', $status, $comment, $request_id);
     $stmt->execute();
-    header('Lokalizacja: widok_manager.php');
+    header('Location: manager_view.php');
+    exit();
 }
 ?>
 <!DOCTYPE html>

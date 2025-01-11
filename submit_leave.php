@@ -2,10 +2,12 @@
 session_start();
 require_once 'connect.php';
 
+error_log("Submitted manager_id: " . $_POST['manager_id']);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_leave'])) {
     // Formularz został wysłany
     $employee_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 1;
-    $manager_id = 1; // Domyślny ID menedżera, dostosuj do swoich potrzeb
+    $manager_id = (int)$_POST['manager_id']; // Korzystanie z wartości z formularza
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $reason = $_POST['reason'];
@@ -32,12 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_leave'])) {
                 header("Location: employee_view.php");
                 exit();
             } else {
-                echo "Execute Error: " . $stmt->error;
+                echo "Error: " . $stmt->error;
             }
 
             $stmt->close();
         } else {
-            echo "Prepare Error: " . $conn->error;
+            echo "Error: " . $conn->error;
         }
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();

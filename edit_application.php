@@ -24,10 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Pobieranie szczegółów wniosku
     $request_id = $_POST['request_id'];
-    $stmt = $conn->prepare("SELECT * FROM wnioski_urlopowe WHERE id = ?");
-    $stmt->bind_param('i', $request_id);
+    $stmt = $conn->prepare("SELECT * FROM wnioski_urlopowe WHERE id = ? AND manager_id = ?");
+    $stmt->bind_param('ii', $request_id, $_SESSION['user_id']);
     $stmt->execute();
     $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        // Jeśli nie znaleziono wniosków, ten wniosek nie należy do tego menedżera
+        header('Location: manager_view.php');
+        exit();
+    }
+
     $application = $result->fetch_assoc();
 }
 ?>

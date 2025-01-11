@@ -14,3 +14,17 @@
 [2025-01-11 10:30:05] Found 1 managers
 [2025-01-11 12:07:18] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
 [2025-01-11 12:07:18] Found 3 managers
+[2025-01-11 12:19:40] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:19:40] Found 3 managers
+[2025-01-11 12:23:18] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:23:18] Found 3 managers
+[2025-01-11 12:24:03] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:24:03] Found 3 managers
+[2025-01-11 12:25:59] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:25:59] Found 3 managers
+[2025-01-11 12:29:17] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:29:17] Found 3 managers
+[2025-01-11 12:30:28] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:30:28] Found 3 managers
+[2025-01-11 12:34:32] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:34:32] Found 3 managers
