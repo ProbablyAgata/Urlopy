@@ -26,13 +26,7 @@ try {
             'imie' => 'Jan',
             'nazwisko' => 'Sobieski'
         ],
-        [
-            'username' => 'Stanislaw.Lem',
-            'password' => 'password789',
-            'role' => 'pracownik',
-            'imie' => 'Stanislaw',
-            'nazwisko' => 'Lem'
-        ],
+
         [
             'username' => 'Kamil.Stoch',
             'password' => 'password987',
@@ -47,20 +41,6 @@ try {
             'imie' => 'Remigiusz',
             'nazwisko' => 'Mroz'
         ],
-        [
-            'username' => 'Maciej.Musial',
-            'password' => 'password321',
-            'role' => 'pracownik',
-            'imie' => 'Maciej',
-            'nazwisko' => 'Musial'
-        ],
-        [
-            'username' => 'Anita.Wlodarczyk',
-            'password' => 'password123',
-            'role' => 'pracownik',
-            'imie' => 'Anita',
-            'nazwisko' => 'Wlodarczyk'
-        ]
     ];
 
     // Tworzenie zapytania SQL
@@ -68,8 +48,8 @@ try {
 
     // Wstawianie każdego użytkownika
     foreach ($users as $user) {
-        // Haszowanie hasła
-        $hashedPassword = password_hash($user['password'], PASSWORD_BCRYPT);
+        // Keep using password_hash
+        $hashedPassword = password_hash($user['password'], PASSWORD_DEFAULT);
 
         // Wykonanie zapytania
         $stmt->execute([

@@ -31,7 +31,7 @@ $result = $stmt->get_result();
 <body>
     <div class="header-container">
         <h1>Moje wnioski</h1>
-        <a href="logout.php" class="button">Wyloguj się</a>
+        <a href="logout.php" class="logout-button">Wyloguj się</a>
     </div>
     <table border="1">
         <thead>
@@ -45,7 +45,7 @@ $result = $stmt->get_result();
         </thead>
         <tbody>
             <?php
-            // Fetch leave applications for the current user
+            // Pobieranie wniosków urlopowych dla aktualnego użytkownika
             $user_id = $_SESSION['user_id'];
             $sql = "SELECT * FROM wnioski_urlopowe WHERE employee_id = ? ORDER BY poczatek_urlopu DESC";
             $stmt = $conn->prepare($sql);

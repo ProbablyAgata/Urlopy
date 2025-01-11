@@ -9,7 +9,7 @@ $conn = new mysqli('localhost', 'root', '', 'planowane_urlopy');
 $result = $conn->query("SELECT wnioski_urlopowe.*, users.imie, users.nazwisko 
                        FROM wnioski_urlopowe 
                        JOIN users ON wnioski_urlopowe.employee_id = users.id
-                       WHERE wnioski_urlopowe.status = 'oczekujacy'");
+                       ORDER BY wnioski_urlopowe.id DESC");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $request_id = $_POST['request_id'];
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <td data-label="Data rozpoczęcia"><?= $row['poczatek_urlopu'] ?></td>
                 <td data-label="Data zakończenia"><?= $row['koniec_urlopu'] ?></td>
                 <td data-label="Powód"><?= $row['powod'] ?></td>
-                <td data-label="Status"><?= $row['status'] ?></td>
+                <td data-label="Status" class="status-<?= $row['status'] ?>"><?= $row['status'] ?></td>
                 <td data-label="Akcja">
                     <?php if ($row['status'] === 'oczekujacy'): ?>
                         <form method="POST">
@@ -59,12 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <button type="submit" name="action" value="approve">Zatwierdź</button>
                             <button type="submit" name="action" value="reject">Odrzuć</button>
                         </form>
+                    <?php else: ?>
+                        <form method="POST" action="edit_application.php">
+                            <input type="hidden" name="request_id" value="<?= $row['id'] ?>">
+                            <button type="submit" name="action" value="edit">Edytuj</button>
+                        </form>
                     <?php endif; ?>
                 </td>
             </tr>
         <?php endwhile; ?>
     </table>
-    <a href="logout.php">Wyloguj się</a>
+    <a href="logout.php" class="logout-button">Wyloguj się</a>
     <div class="container">
     </div>
 </body>

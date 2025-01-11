@@ -3,16 +3,16 @@ session_start();
 require_once 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_leave'])) {
-    // Get and sanitize form data
+    // Formularz został wysłany
     $employee_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 1;
-    $manager_id = 1; // Default manager ID, adjust as needed
+    $manager_id = 1; // Domyślny ID menedżera, dostosuj do swoich potrzeb
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $reason = $_POST['reason'];
     $status = 'oczekujacy';
 
     try {
-        // Updated SQL to match your table structure
+        // Aktualizowane zapytanie SQL do pasowania do struktury tabeli
         $sql = "INSERT INTO wnioski_urlopowe (employee_id, manager_id, poczatek_urlopu, koniec_urlopu, powod, status) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);

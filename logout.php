@@ -4,7 +4,7 @@ require_once 'connect.php';
 
 // Przekierowanie do index.html, jeśli nie ma sesji
 if (!isset($_SESSION['user_id'])) {
-    header("Lokalizacja: index.html");
+    header("Location: index.html");
     exit();
 }
 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'confirm_logout') {
             session_destroy();
-            header("Lokalizacja: index.html");
+            header("Location: index.html");
             exit();
         } elseif ($_POST['action'] === 'cancel') {
             $role = isset($_SESSION['rola']) && in_array($_SESSION['rola'], ['pracownik', 'manager'])
@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 : 'pracownik';
             switch ($role) {
                 case 'pracownik':
-                    header("Lokalizacja: employee_view.php");
+                    header("Location: employee_view.php");
                     exit();
                 case 'manager':
-                    header("Lokalizacja: manager_view.php");
+                    header("Location: manager_view.php");
                     exit();
                 default:
-                    header("Lokalizacja: index.html");
+                    header("Location: index.html");
                     exit();
             }
         }

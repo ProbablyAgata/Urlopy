@@ -87,6 +87,3 @@ ALTER TABLE `wnioski_urlopowe`
   ADD CONSTRAINT `wnioski_urlopowe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
-UPDATE users 
-SET password = '$2y$10$YourNewHashHere'
-WHERE username = 'Agata_Ochocinska';

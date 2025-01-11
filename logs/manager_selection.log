@@ -1,0 +1,16 @@
+[2025-01-11 10:14:51] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:14:51] No managers found in the database
+[2025-01-11 10:16:11] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:16:11] Found 1 managers
+[2025-01-11 10:16:38] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:16:38] Found 1 managers
+[2025-01-11 10:19:28] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:19:28] Found 1 managers
+[2025-01-11 10:29:48] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:29:48] Found 1 managers
+[2025-01-11 10:30:04] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:30:04] Found 1 managers
+[2025-01-11 10:30:05] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 10:30:05] Found 1 managers
+[2025-01-11 12:07:18] Executing query: SELECT id, imie, nazwisko FROM users WHERE role = 'manager' ORDER BY nazwisko, imie
+[2025-01-11 12:07:18] Found 3 managers
